@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../provider/GlobalProvider';
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees';
 import AddAddress from '../components/AddAddress';
@@ -22,7 +22,16 @@ const CheckoutPage = () => {
   const addressList = useSelector((state) => state.addresses.addressList);
   const [selectAddress, setSelectAddress] = useState(0);
   const cartItemsList = useSelector((state) => state.cartItem.cart);
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  // Check if user is admin and redirect
+  useEffect(() => {
+    if (user?.role === 'ADMIN') {
+      toast.error('Admins cannot place orders');
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleCashOnDelivery = async () => {
     try {

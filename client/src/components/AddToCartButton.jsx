@@ -12,13 +12,23 @@ const AddToCartButton = ({ data }) => {
   const { fetchCartItem, updateCartItem, deleteCartItem } = useGlobalContext();
   const [loading, setLoading] = useState(false);
   const cartItem = useSelector((state) => state.cartItem.cart);
+  const user = useSelector((state) => state.user);
   const [isAvailableCart, setIsAvailableCart] = useState(false);
   const [qty, setQty] = useState(0);
   const [cartItemDetails, setCartItemsDetails] = useState();
 
+  // Check if user is admin - admins cannot place orders
+  const isAdmin = user?.role === 'ADMIN';
+
   const handleADDTocart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Prevent admins from adding items to cart
+    if (isAdmin) {
+      toast.error('Admins cannot place orders');
+      return;
+    }
 
     try {
       setLoading(true);
@@ -61,6 +71,12 @@ const AddToCartButton = ({ data }) => {
     e.preventDefault();
     e.stopPropagation();
 
+    // Prevent admins from updating cart
+    if (isAdmin) {
+      toast.error('Admins cannot place orders');
+      return;
+    }
+
     const response = await updateCartItem(cartItemDetails?._id, qty + 1);
 
     if (response.success) {
@@ -71,6 +87,13 @@ const AddToCartButton = ({ data }) => {
   const decreaseQty = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Prevent admins from updating cart
+    if (isAdmin) {
+      toast.error('Admins cannot place orders');
+      return;
+    }
+
     if (qty === 1) {
       deleteCartItem(cartItemDetails?._id);
     } else {
@@ -83,7 +106,12 @@ const AddToCartButton = ({ data }) => {
   };
   return (
     <div className="w-full max-w-[150px]">
-      {isAvailableCart ? (
+      {/* Hide cart functionality for admins */}
+      {isAdmin ? (
+        <div className="bg-gray-300 text-gray-500 px-2 lg:px-4 py-1 rounded-lg font-medium text-center cursor-not-allowed">
+          Admin Account
+        </div>
+      ) : isAvailableCart ? (
         <div className="flex w-full h-full">
           <button
             onClick={decreaseQty}

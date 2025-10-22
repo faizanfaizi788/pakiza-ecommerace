@@ -17,6 +17,11 @@ const DisplayCartItem = ({ close }) => {
   const navigate = useNavigate();
 
   const redirectToCheckoutPage = () => {
+    if (user?.role === 'ADMIN') {
+      toast.error('Admins cannot place orders');
+      return;
+    }
+
     if (user?._id) {
       navigate('/checkout');
       if (close) {

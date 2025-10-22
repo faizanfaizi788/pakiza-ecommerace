@@ -64,52 +64,61 @@ const Register = () => {
     }
   };
   return (
-    <section className="w-full container mx-auto px-2 min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
-      <div className="bg-gradient-to-r from-white to-purple-50 my-4 w-full max-w-lg mx-auto rounded-xl shadow-lg p-7 border border-purple-200">
-        <div className="text-center mb-6">
+    <section className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center px-4 py-8">
+      <div className="bg-gradient-to-r from-white to-purple-50 w-full max-w-md rounded-2xl shadow-2xl p-8 border border-purple-200">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
             Welcome to Pakiza
           </h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-3 text-sm">
             Create your account to get started
           </p>
         </div>
 
-        <form className="grid gap-6 mt-6" onSubmit={handleSubmit}>
-          <div className="grid gap-2">
-            <label htmlFor="name" className="text-gray-700 font-medium">
-              Name :
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="space-y-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium text-sm"
+            >
+              Full Name
             </label>
             <input
               type="text"
               id="name"
               autoFocus
-              className="bg-gradient-to-r from-purple-50 to-blue-50 p-3 border border-purple-200 rounded-xl outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all"
+              className="w-full bg-gradient-to-r from-purple-50 to-blue-50 p-4 border border-purple-200 rounded-xl outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all duration-200"
               name="name"
               value={data.name}
               onChange={handleChange}
-              placeholder="Enter your name"
+              placeholder="Enter your full name"
             />
           </div>
-          <div className="grid gap-2">
-            <label htmlFor="email" className="text-gray-700 font-medium">
-              Email :
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-medium text-sm"
+            >
+              Email Address
             </label>
             <input
               type="email"
               id="email"
-              className="bg-gradient-to-r from-purple-50 to-blue-50 p-3 border border-purple-200 rounded-xl outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all"
+              className="w-full bg-gradient-to-r from-purple-50 to-blue-50 p-4 border border-purple-200 rounded-xl outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all duration-200"
               name="email"
               value={data.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter your email address"
             />
           </div>
-          <div className="grid gap-2">
-            <label htmlFor="password" className="text-gray-700 font-medium">
-              Password :
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium text-sm"
+            >
+              Password
             </label>
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-3 border border-purple-200 rounded-xl flex items-center focus-within:border-purple-400 focus-within:ring-2 focus-within:ring-purple-100 transition-all">
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl flex items-center p-4 focus-within:border-purple-400 focus-within:ring-2 focus-within:ring-purple-100 transition-all duration-200">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -121,20 +130,20 @@ const Register = () => {
               />
               <div
                 onClick={() => setShowPassword((preve) => !preve)}
-                className="cursor-pointer text-purple-600 hover:text-purple-800"
+                className="cursor-pointer text-purple-600 hover:text-purple-800 ml-2"
               >
                 {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </div>
             </div>
           </div>
-          <div className="grid gap-2">
+          <div className="space-y-2">
             <label
               htmlFor="confirmPassword"
-              className="text-gray-700 font-medium"
+              className="block text-gray-700 font-medium text-sm"
             >
-              Confirm Password :
+              Confirm Password
             </label>
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-3 border border-purple-200 rounded-xl flex items-center focus-within:border-purple-400 focus-within:ring-2 focus-within:ring-purple-100 transition-all">
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl flex items-center p-4 focus-within:border-purple-400 focus-within:ring-2 focus-within:ring-purple-100 transition-all duration-200">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 id="confirmPassword"
@@ -142,11 +151,11 @@ const Register = () => {
                 name="confirmPassword"
                 value={data.confirmPassword}
                 onChange={handleChange}
-                placeholder="Enter your confirm password"
+                placeholder="Confirm your password"
               />
               <div
                 onClick={() => setShowConfirmPassword((preve) => !preve)}
-                className="cursor-pointer text-purple-600 hover:text-purple-800"
+                className="cursor-pointer text-purple-600 hover:text-purple-800 ml-2"
               >
                 {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </div>
@@ -155,25 +164,27 @@ const Register = () => {
 
           <button
             disabled={!valideValue}
-            className={` ${
+            className={`w-full ${
               valideValue
-                ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
-                : 'bg-gray-400'
-            } text-white py-3 rounded-xl font-semibold my-3 tracking-wide transition-all shadow-lg`}
+                ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl'
+                : 'bg-gray-400 cursor-not-allowed'
+            } text-white py-4 rounded-xl font-semibold transition-all duration-200 mt-2`}
           >
-            Register
+            Create Account
           </button>
         </form>
 
-        <p className="text-center text-gray-600">
-          Already have account ?{' '}
-          <Link
-            to={'/login'}
-            className="font-semibold text-purple-600 hover:text-purple-800 transition-colors"
-          >
-            Login
-          </Link>
-        </p>
+        <div className="mt-8 text-center">
+          <p className="text-gray-600 text-sm">
+            Already have an account?{' '}
+            <Link
+              to={'/login'}
+              className="font-semibold text-purple-600 hover:text-purple-800 transition-colors"
+            >
+              Sign In
+            </Link>
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -50,6 +50,22 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
     containerRef.current.scrollLeft -= 200;
   };
 
+  // Check if scrolling is needed (more items than can fit in view)
+  const [showScrollButtons, setShowScrollButtons] = useState(false);
+
+  useEffect(() => {
+    const checkScrollNeeded = () => {
+      if (containerRef.current) {
+        const { scrollWidth, clientWidth } = containerRef.current;
+        setShowScrollButtons(scrollWidth > clientWidth && data.length > 1);
+      }
+    };
+
+    checkScrollNeeded();
+    window.addEventListener('resize', checkScrollNeeded);
+    return () => window.removeEventListener('resize', checkScrollNeeded);
+  }, [data]);
+
   const handleRedirectProductListpage = () => {
     const subcategory = subCategoryData.find((sub) => {
       const filterData = sub.category.some((c) => {
@@ -79,9 +95,9 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
           See All
         </Link>
       </div>
-      <div className="relative flex items-center ">
+      <div className="relative">
         <div
-          className=" flex gap-4 md:gap-6 lg:gap-8 container mx-auto px-4 overflow-x-scroll scrollbar-none scroll-smooth"
+          className="flex gap-4 md:gap-6 lg:gap-8 container mx-auto px-4 pb-4 overflow-x-auto scrollbar-none scroll-smooth"
           ref={containerRef}
         >
           {loading &&
@@ -100,20 +116,24 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
             );
           })}
         </div>
-        <div className="w-full left-0 right-0 container mx-auto  px-2  absolute hidden lg:flex justify-between">
-          <button
-            onClick={handleScrollLeft}
-            className="z-10 relative bg-gradient-to-r from-white to-purple-50 hover:from-purple-100 hover:to-blue-100 shadow-lg text-lg p-2 rounded-full border border-purple-200 transition-all duration-300"
-          >
-            <FaAngleLeft className="text-purple-600" />
-          </button>
-          <button
-            onClick={handleScrollRight}
-            className="z-10 relative bg-gradient-to-r from-white to-purple-50 hover:from-purple-100 hover:to-blue-100 shadow-lg p-2 text-lg rounded-full border border-purple-200 transition-all duration-300"
-          >
-            <FaAngleRight className="text-purple-600" />
-          </button>
-        </div>
+
+        {/* Scroll buttons - only show when needed and content overflows */}
+        {showScrollButtons && (
+          <div className="absolute top-1/2 transform -translate-y-1/2 w-full px-2 hidden lg:flex justify-between pointer-events-none">
+            <button
+              onClick={handleScrollLeft}
+              className="pointer-events-auto z-10 bg-gradient-to-r from-white to-purple-50 hover:from-purple-100 hover:to-blue-100 shadow-lg text-lg p-3 rounded-full border border-purple-200 transition-all duration-300"
+            >
+              <FaAngleLeft className="text-purple-600" />
+            </button>
+            <button
+              onClick={handleScrollRight}
+              className="pointer-events-auto z-10 bg-gradient-to-r from-white to-purple-50 hover:from-purple-100 hover:to-blue-100 shadow-lg p-3 text-lg rounded-full border border-purple-200 transition-all duration-300"
+            >
+              <FaAngleRight className="text-purple-600" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
