@@ -1,0 +1,359 @@
+/* Global theme variables - Default to Pakiza theme */
+:root {
+  --theme-primary: 168 85 247;
+  --theme-secondary: 59 130 246;
+  --theme-50: 250 247 255;
+  --theme-100: 243 236 255;
+  --theme-200: 233 217 255;
+  --theme-300: 215 185 255;
+  --theme-400: 191 141 255;
+  --theme-500: 168 85 247;
+  --theme-600: 147 51 234;
+  --theme-700: 124 45 18;
+  --theme-800: 88 28 135;
+  --theme-900: 59 7 100;
+  --theme-gradient: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+  --theme-gradient-light: linear-gradient(135deg, #f3ecff 0%, #dbeafe 100%);
+  --theme-card: linear-gradient(135deg, #ffffff 0%, #f3ecff 100%);
+}
+
+/* Theme-specific body classes - these override the root variables */
+.theme-pakiza {
+  --theme-primary: 168 85 247;
+  --theme-secondary: 59 130 246;
+  --theme-50: 250 247 255;
+  --theme-100: 243 236 255;
+  --theme-200: 233 217 255;
+  --theme-300: 215 185 255;
+  --theme-400: 191 141 255;
+  --theme-500: 168 85 247;
+  --theme-600: 147 51 234;
+  --theme-700: 124 45 18;
+  --theme-800: 88 28 135;
+  --theme-900: 59 7 100;
+  --theme-gradient: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+  --theme-gradient-light: linear-gradient(135deg, #f3ecff 0%, #dbeafe 100%);
+  --theme-card: linear-gradient(135deg, #ffffff 0%, #f3ecff 100%);
+}
+
+.theme-green {
+  --theme-primary: 16 185 129;
+  --theme-secondary: 5 150 105;
+  --theme-50: 236 253 245;
+  --theme-100: 209 250 229;
+  --theme-200: 167 243 208;
+  --theme-300: 110 231 183;
+  --theme-400: 52 211 153;
+  --theme-500: 16 185 129;
+  --theme-600: 5 150 105;
+  --theme-700: 4 120 87;
+  --theme-800: 6 95 70;
+  --theme-900: 6 78 59;
+  --theme-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --theme-gradient-light: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  --theme-card: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+}
+
+.theme-blue {
+  --theme-primary: 59 130 246;
+  --theme-secondary: 99 102 241;
+  --theme-50: 239 246 255;
+  --theme-100: 219 234 254;
+  --theme-200: 191 219 254;
+  --theme-300: 147 197 253;
+  --theme-400: 96 165 250;
+  --theme-500: 59 130 246;
+  --theme-600: 37 99 235;
+  --theme-700: 29 78 216;
+  --theme-800: 30 64 175;
+  --theme-900: 30 58 138;
+  --theme-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  --theme-gradient-light: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  --theme-card: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.theme-orange {
+  --theme-primary: 249 115 22;
+  --theme-secondary: 239 68 68;
+  --theme-50: 255 247 237;
+  --theme-100: 255 237 213;
+  --theme-200: 254 215 170;
+  --theme-300: 253 186 116;
+  --theme-400: 251 146 60;
+  --theme-500: 249 115 22;
+  --theme-600: 234 88 12;
+  --theme-700: 194 65 12;
+  --theme-800: 154 52 18;
+  --theme-900: 124 45 18;
+  --theme-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  --theme-gradient-light: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  --theme-card: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+}
+
+/* Smooth transitions for all elements except theme classes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+.bg-theme-primary {
+  background-color: var(--theme-primary) !important;
+}
+
+.bg-theme-secondary {
+  background-color: var(--theme-secondary) !important;
+}
+
+.text-theme-primary {
+  color: var(--theme-primary) !important;
+}
+
+.text-theme-secondary {
+  color: var(--theme-secondary) !important;
+}
+
+.border-theme-primary {
+  border-color: var(--theme-primary) !important;
+}
+
+.border-theme-secondary {
+  border-color: var(--theme-secondary) !important;
+}
+
+/* Global animations */
+@keyframes pakiza-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pakiza-fade-in {
+  animation: pakiza-fade-in 0.3s ease-out;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Override specific components with theme colors */
+.theme-green .bg-pakiza-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.theme-blue .bg-pakiza-gradient {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+}
+
+.theme-orange .bg-pakiza-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%) !important;
+}
+
+.theme-green .bg-pakiza-gradient-light {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+}
+
+.theme-blue .bg-pakiza-gradient-light {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+}
+
+.theme-orange .bg-pakiza-gradient-light {
+  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important;
+}
+
+/* Focus states */
+.theme-green .focus\:ring-pakiza-500:focus {
+  --tw-ring-color: #10b981 !important;
+}
+
+.theme-blue .focus\:ring-pakiza-500:focus {
+  --tw-ring-color: #3b82f6 !important;
+}
+
+.theme-orange .focus\:ring-pakiza-500:focus {
+  --tw-ring-color: #f97316 !important;
+}
+
+/* Design Style Classes for Complete Theme Transformation */
+
+/* Modern Design (Pakiza Purple) */
+.design-modern {
+  --design-borderRadius: 1.5rem;
+  --design-shadowDepth: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --design-spacing: 1.5rem;
+  --design-cardPadding: 2rem;
+}
+
+.design-modern .design-card {
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.design-modern .design-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.35);
+}
+
+.design-modern .design-button {
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.design-modern .design-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.3);
+}
+
+.design-modern .design-text {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Classic Design (Green) */
+.design-classic {
+  --design-borderRadius: 0.5rem;
+  --design-shadowDepth: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --design-spacing: 1rem;
+  --design-cardPadding: 1.5rem;
+}
+
+.design-classic .design-card {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background: white;
+  border: 2px solid #e5e7eb;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.design-classic .design-card:hover {
+  border-color: rgb(var(--theme-500));
+}
+
+.design-classic .design-button {
+  border-radius: 0.5rem;
+  border: 2px solid currentColor;
+  font-family: serif;
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.design-classic .design-button:hover {
+  background: currentColor;
+  color: white;
+}
+
+.design-classic .design-text {
+  font-family: serif;
+  font-size: 1.125rem;
+}
+
+/* Minimal Design (Blue) */
+.design-minimal {
+  --design-borderRadius: 0.25rem;
+  --design-shadowDepth: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --design-spacing: 0.75rem;
+  --design-cardPadding: 1rem;
+}
+
+.design-minimal .design-card {
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+
+.design-minimal .design-card:hover {
+  border-color: rgb(var(--theme-500));
+}
+
+.design-minimal .design-button {
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  font-weight: 300;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.design-minimal .design-button:hover {
+  border-color: rgb(var(--theme-500));
+  color: rgb(var(--theme-500));
+}
+
+.design-minimal .design-text {
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+
+/* Bold Design (Orange) */
+.design-bold {
+  --design-borderRadius: 0.75rem;
+  --design-shadowDepth: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  --design-spacing: 2rem;
+  --design-cardPadding: 2.5rem;
+}
+
+.design-bold .design-card {
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to bottom right, white, #f9fafb);
+  padding: 2.5rem;
+  border: 4px solid rgb(var(--theme-200));
+  transition: all 0.5s ease-out;
+}
+
+.design-bold .design-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  border-color: rgb(var(--theme-500));
+}
+
+.design-bold .design-button {
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    to right,
+    rgb(var(--theme-500)),
+    rgb(var(--theme-600))
+  );
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  transition: all 0.5s ease-out;
+  color: white;
+}
+
+.design-bold .design-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.design-bold .design-text {
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

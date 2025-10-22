@@ -1,28 +1,41 @@
-import React from 'react'
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+import React from 'react';
+import { FaFacebook } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className='border-t'>
-        <div className='container mx-auto p-4 text-center flex flex-col lg:flex-row lg:justify-between gap-2'>
-            <p>© All Rights Reserved 2024.</p>
-
-            <div className='flex items-center gap-4 justify-center text-2xl'>
-                <a href='' className='hover:text-primary-100'>
-                    <FaFacebook/>
-                </a>
-                <a href='' className='hover:text-primary-100'>
-                    <FaInstagram/>
-                </a>
-                <a href='' className='hover:text-primary-100'>
-                    <FaLinkedin/>
-                </a>
-            </div>
+    <footer className="border-t border-theme-200 bg-gradient-to-r from-theme-50 to-theme-100">
+      <div className="container mx-auto p-6 text-center flex flex-col lg:flex-row lg:justify-between gap-4">
+        <div className="flex flex-col gap-2">
+          <p className="text-theme-800 font-medium">
+            © All Rights Reserved 2025 Pakiza
+          </p>
+          <p className="text-theme-600 text-sm">
+            Fast Delivery • Quality Products • Best Prices
+          </p>
         </div>
-    </footer>
-  )
-}
 
-export default Footer
+        <div className="flex items-center gap-6 justify-center">
+          <a
+            href="https://web.facebook.com/profile.php?id=61569561023739"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-theme-500 hover:text-theme-700 transition-all duration-300 transform hover:scale-110"
+          >
+            <FaFacebook size={24} />
+          </a>
+          <a
+            href="https://www.instagram.com/codeinnovators788/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-theme-500 hover:text-theme-700 transition-all duration-300 transform hover:scale-110"
+          >
+            <FaInstagram size={24} />
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

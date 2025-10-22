@@ -32,7 +32,7 @@ const DisplayCartItem = ({ close }) => {
     toast('Please Login');
   };
   return (
-    <section className="bg-neutral-900 fixed top-0 bottom-0 right-0 left-0 bg-opacity-70 z-50">
+    <section className="fixed top-0 bottom-0 right-0 left-0 z-50 bg-white/30 backdrop-blur-md">
       <div className="bg-gradient-to-br from-white to-purple-50 w-full max-w-sm min-h-screen max-h-screen ml-auto shadow-2xl border-l border-purple-200">
         <div className="flex items-center p-4 shadow-md gap-3 justify-between bg-gradient-to-r from-purple-600 to-blue-600">
           <h2 className="font-semibold text-white text-lg">Shopping Cart</h2>

@@ -18,15 +18,15 @@ const MyOrders = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('en-PK', {
       style: 'currency',
-      currency: 'INR',
+      currency: 'PKR',
     }).format(amount);
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IN', {
+    return date.toLocaleDateString('en-PK', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
@@ -35,74 +35,102 @@ const MyOrders = () => {
 
   console.log('order Items', orders);
   return (
-    <div>
-      <div className="bg-white shadow-md p-3 font-semibold">
-        <h1>My Orders</h1>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+      <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-700 shadow-lg px-6 py-4">
+        <h1 className="text-2xl font-bold text-white">My Orders</h1>
       </div>
-      {!orders[0] && <NoData />}
-      {orders.map((order, index) => {
-        return (
-          <div
-            key={order._id + index + 'order'}
-            className="border rounded-lg p-4 m-2 bg-white shadow-sm"
-          >
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <p className="text-sm text-gray-600">
-                  Order No:{' '}
-                  <span className="font-medium">{order?.orderId}</span>
-                </p>
-                <p className="text-sm text-gray-600">
-                  Date: {formatDate(order?.createdAt)}
-                </p>
-              </div>
-              <div className="text-right">
-                <span
-                  className={`px-2 py-1 text-xs rounded-full font-medium ${getStatusColor(
-                    order?.order_status || 'Pending'
-                  )}`}
-                >
-                  {order?.order_status || 'Pending'}
-                </span>
-              </div>
-            </div>
 
-            <div className="flex gap-3 items-center mb-3">
-              <img
-                src={order.product_details.image[0]}
-                className="w-16 h-16 object-cover rounded-lg"
-                alt={order.product_details.name}
-              />
-              <div className="flex-1">
-                <p className="font-medium text-gray-800">
-                  {order.product_details.name}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Quantity: {order.quantity || 1}
-                </p>
-                <p className="text-sm font-medium text-gray-800">
-                  {formatCurrency(order.totalAmt)}
-                </p>
+      <div className="p-6 max-w-4xl mx-auto">
+        {!orders[0] && <NoData />}
+        {orders.map((order, index) => {
+          return (
+            <div
+              key={order._id + index + 'order'}
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 mb-6 overflow-hidden border border-gray-200"
+            >
+              {/* Order Header */}
+              <div className="bg-gradient-to-r from-gray-50 to-purple-50 px-6 py-4 border-b border-gray-200">
+                <div className="flex justify-between items-center">
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-gray-700">
+                      Order #{order?.orderId}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Placed on {formatDate(order?.createdAt)}
+                    </p>
+                  </div>
+                  <div className="text-right space-y-2">
+                    <span
+                      className={`inline-block px-3 py-1 text-xs rounded-full font-medium ${getStatusColor(
+                        order?.order_status || 'Pending'
+                      )}`}
+                    >
+                      {order?.order_status || 'Pending'}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className="border-t pt-3">
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Payment:</span>
-                <span
-                  className={`px-2 py-1 text-xs rounded-full ${
-                    order.payment_status === 'CASH ON DELIVERY'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-green-100 text-green-800'
-                  }`}
-                >
-                  {order.payment_status}
-                </span>
+              {/* Product Details */}
+              <div className="p-6">
+                <div className="flex gap-4 items-start">
+                  <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                    <img
+                      src={order.product_details.image[0]}
+                      className="w-full h-full object-cover"
+                      alt={order.product_details.name}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2">
+                      {order.product_details.name}
+                    </h3>
+                    <div className="flex items-center gap-4 mb-3">
+                      <span className="text-sm text-gray-600">
+                        Qty:{' '}
+                        <span className="font-medium">
+                          {order.quantity || 1}
+                        </span>
+                      </span>
+                      <span className="text-lg font-bold text-purple-600">
+                        {formatCurrency(order.totalAmt)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment & Delivery Info */}
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">
+                        Payment Method:
+                      </span>
+                      <span
+                        className={`px-2 py-1 text-xs rounded-full font-medium ${
+                          order.payment_status === 'CASH ON DELIVERY'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-green-100 text-green-800'
+                        }`}
+                      >
+                        {order.payment_status}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">
+                        Total Amount:
+                      </span>
+                      <span className="font-bold text-gray-800">
+                        {formatCurrency(order.totalAmt)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

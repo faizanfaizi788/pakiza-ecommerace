@@ -24,6 +24,12 @@ const AddToCartButton = ({ data }) => {
     e.preventDefault();
     e.stopPropagation();
 
+    // Check if user is logged in
+    if (!user?._id) {
+      toast.error('Please login to add items to cart');
+      return;
+    }
+
     // Prevent admins from adding items to cart
     if (isAdmin) {
       toast.error('Admins cannot place orders');
@@ -71,6 +77,12 @@ const AddToCartButton = ({ data }) => {
     e.preventDefault();
     e.stopPropagation();
 
+    // Check if user is logged in
+    if (!user?._id) {
+      toast.error('Please login to modify cart items');
+      return;
+    }
+
     // Prevent admins from updating cart
     if (isAdmin) {
       toast.error('Admins cannot place orders');
@@ -87,6 +99,12 @@ const AddToCartButton = ({ data }) => {
   const decreaseQty = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Check if user is logged in
+    if (!user?._id) {
+      toast.error('Please login to modify cart items');
+      return;
+    }
 
     // Prevent admins from updating cart
     if (isAdmin) {

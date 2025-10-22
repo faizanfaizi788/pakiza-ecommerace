@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Search from './Search';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaRegCircleUser } from 'react-icons/fa6';
@@ -20,10 +20,9 @@ const Header = () => {
   const user = useSelector((state) => state?.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const cartItem = useSelector((state) => state.cartItem.cart);
-  // const [totalPrice,setTotalPrice] = useState(0)
-  // const [totalQty,setTotalQty] = useState(0)
   const { totalPrice, totalQty } = useGlobalContext();
   const [openCartSection, setOpenCartSection] = useState(false);
+  const userMenuRef = useRef(null);
 
   const redirectToLoginPage = () => {
     navigate('/login');
@@ -32,6 +31,23 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setOpenUserMenu(false);
   };
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setOpenUserMenu(false);
+      }
+    };
+
+    if (openUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openUserMenu]);
 
   const handleMobileUser = () => {
     if (!user._id) {
@@ -57,7 +73,7 @@ const Header = () => {
   // },[cartItem])
 
   return (
-    <header className="h-24 lg:h-20 lg:shadow-lg sticky top-0 z-40 flex flex-col justify-center gap-1 bg-gradient-to-r from-white via-blue-50 to-purple-50 backdrop-blur-sm border-b border-purple-100">
+    <header className="h-24 lg:h-20 lg:shadow-lg sticky top-0 z-40 flex flex-col justify-center gap-1 bg-gradient-to-r from-white via-theme-50 to-theme-100 backdrop-blur-sm border-b border-theme-200">
       {!(isSearchPage && isMobile) && (
         <div className="container mx-auto flex items-center px-2 justify-between">
           {/**logo */}
@@ -65,14 +81,14 @@ const Header = () => {
             <Link to={'/'} className="h-full flex justify-center items-center">
               <div className="flex items-center space-x-2">
                 <div className="relative">
-                  <MdStorefront className="text-3xl lg:text-4xl text-gradient bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent" />
+                  <MdStorefront className="text-3xl lg:text-4xl text-theme-500" />
                   <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full animate-pulse"></div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-purple-800 bg-clip-text text-transparent">
+                  <span className="text-2xl lg:text-3xl font-bold text-theme-500">
                     Pakiza
                   </span>
-                  <span className="text-xs text-gray-500 -mt-1 hidden lg:block">
+                  <span className="text-xs font-medium text-gray-600 -mt-1 hidden lg:block">
                     Fast Delivery
                   </span>
                 </div>
@@ -96,39 +112,73 @@ const Header = () => {
             </button>
 
             {/**Desktop**/}
-            <div className="hidden lg:flex  items-center gap-10">
+            <div className="hidden lg:flex items-center gap-4">
               {user?._id ? (
-                <div className="relative">
+                <div className="relative" ref={userMenuRef}>
                   <div
                     onClick={() => setOpenUserMenu((preve) => !preve)}
-                    className="flex select-none items-center gap-1 cursor-pointer"
+                    className="flex select-none items-center gap-2 cursor-pointer px-3 py-2 rounded-lg hover:bg-theme-50 transition-all duration-200 border border-transparent hover:border-theme-200"
                   >
-                    <p>Account</p>
+                    <FaRegCircleUser size={20} className="text-theme-600" />
+                    <span className="text-sm font-medium text-gray-700">
+                      {user.name || 'My Account'}
+                    </span>
                     {openUserMenu ? (
-                      <GoTriangleUp size={25} />
+                      <GoTriangleUp size={16} className="text-gray-500" />
                     ) : (
-                      <GoTriangleDown size={25} />
+                      <GoTriangleDown size={16} className="text-gray-500" />
                     )}
                   </div>
                   {openUserMenu && (
-                    <div className="absolute right-0 top-12">
-                      <div className="bg-white rounded p-4 min-w-52 lg:shadow-lg">
-                        <UserMenu close={handleCloseUserMenu} />
+                    <div className="absolute right-0 top-14 z-50">
+                      <div className="bg-white rounded-xl shadow-2xl border border-gray-100 min-w-72 overflow-hidden backdrop-blur-sm">
+                        {/* Header Section */}
+                        <div className="bg-gradient-to-r from-theme-50 to-theme-100 p-4 border-b border-gray-100">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-theme-500 rounded-full flex items-center justify-center">
+                              <FaRegCircleUser
+                                size={18}
+                                className="text-white"
+                              />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-gray-800 text-sm">
+                                {user.name || 'User Account'}
+                              </h3>
+                              <p className="text-xs font-medium text-gray-600">
+                                {user.email || user.mobile}
+                                {user.role === 'ADMIN' && (
+                                  <span className="ml-2 px-2 py-0.5 bg-theme-500 text-white text-xs font-medium rounded-full">
+                                    Admin
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Menu Items */}
+                        <div className="p-2">
+                          <UserMenu close={handleCloseUserMenu} />
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
               ) : (
-                <button onClick={redirectToLoginPage} className="text-lg px-2">
-                  Login
+                <button
+                  onClick={redirectToLoginPage}
+                  className="px-4 py-2 text-sm font-medium text-theme-600 border border-theme-200 rounded-lg hover:bg-theme-50 hover:border-theme-300 transition-all duration-200"
+                >
+                  Sign In
                 </button>
               )}
 
-              {/* Hide cart button for admin users */}
-              {user?.role !== 'ADMIN' && (
+              {/* Hide cart button for admin users and non-logged in users */}
+              {user?._id && user?.role !== 'ADMIN' && (
                 <button
                   onClick={() => setOpenCartSection(true)}
-                  className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-3 py-2 rounded-lg text-white shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="flex items-center gap-2 bg-theme-gradient hover:bg-theme-600 px-3 py-2 rounded-lg text-white shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
                   {/**add to card icons */}
                   <div className="animate-bounce">

@@ -16,7 +16,6 @@ const AdminOrders = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showStatusModal, setShowStatusModal] = useState(false);
-
   const orderStatuses = [
     {
       value: 'Pending',
@@ -119,9 +118,9 @@ const AdminOrders = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('en-PK', {
       style: 'currency',
-      currency: 'INR',
+      currency: 'PKR',
     }).format(amount);
   };
 
@@ -192,7 +191,7 @@ const AdminOrders = () => {
           </div>
           <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-2 sm:p-3 rounded-xl border border-emerald-200 shadow-md hover:shadow-lg transition-all duration-300">
             <p className="text-xs text-emerald-600 font-medium">Revenue</p>
-            <p className="text-xs sm:text-sm font-bold text-emerald-700 truncate">
+            <p className="text-xs sm:text-sm font-bold text-emerald-700 overflow-x-auto whitespace-nowrap">
               {formatCurrency(stats.totalRevenue || 0)}
             </p>
           </div>
@@ -209,8 +208,8 @@ const AdminOrders = () => {
               className="border-b border-purple-100 p-3 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 transition-all duration-300"
             >
               <div className="flex justify-between items-start mb-2">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 overflow-x-auto whitespace-nowrap">
                     {order.orderId}
                   </p>
                   <p className="text-xs text-gray-500">
@@ -236,7 +235,7 @@ const AdminOrders = () => {
                   className="w-10 h-10 rounded-lg object-cover mr-3 flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                  <p className="text-sm font-medium text-gray-900 overflow-x-auto whitespace-nowrap">
                     {order.product_details?.name}
                   </p>
                   <p className="text-xs text-gray-500">
@@ -248,7 +247,7 @@ const AdminOrders = () => {
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Customer:</span>
-                  <span className="font-medium text-gray-900 truncate ml-1">
+                  <span className="font-medium text-gray-900 overflow-x-auto whitespace-nowrap ml-1 max-w-[120px]">
                     {order.userId?.name}
                   </span>
                 </div>
@@ -328,16 +327,16 @@ const AdminOrders = () => {
                   className="hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 transition-all duration-300"
                 >
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
-                    <div className="max-w-[100px] truncate">
+                    <div className="max-w-[100px] overflow-x-auto whitespace-nowrap">
                       {order.orderId}
                     </div>
                   </td>
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap">
                     <div className="max-w-[120px]">
-                      <div className="text-xs sm:text-sm font-medium text-gray-900 truncate">
+                      <div className="text-xs sm:text-sm font-medium text-gray-900 overflow-x-auto whitespace-nowrap">
                         {order.userId?.name}
                       </div>
-                      <div className="text-xs text-gray-500 truncate">
+                      <div className="text-xs text-gray-500 overflow-x-auto whitespace-nowrap">
                         {order.userId?.email}
                       </div>
                     </div>
@@ -347,10 +346,10 @@ const AdminOrders = () => {
                       <img
                         src={order.product_details?.image?.[0]}
                         alt={order.product_details?.name}
-                        className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg object-cover mr-2"
+                        className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg object-cover mr-2 flex-shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs sm:text-sm font-medium text-gray-900 truncate">
+                        <div className="text-xs sm:text-sm font-medium text-gray-900 overflow-x-auto whitespace-nowrap">
                           {order.product_details?.name}
                         </div>
                         <div className="text-xs text-gray-500">
@@ -360,13 +359,13 @@ const AdminOrders = () => {
                     </div>
                   </td>
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                    <div className="max-w-[80px] truncate">
+                    <div className="max-w-[80px] overflow-x-auto whitespace-nowrap">
                       {formatCurrency(order.totalAmt)}
                     </div>
                   </td>
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap">
                     <span
-                      className={`px-1 py-1 text-xs rounded-full ${
+                      className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
                         order.payment_status === 'CASH ON DELIVERY'
                           ? 'bg-yellow-100 text-yellow-800'
                           : 'bg-green-100 text-green-800'
@@ -379,7 +378,7 @@ const AdminOrders = () => {
                   </td>
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap">
                     <span
-                      className={`px-1 py-1 text-xs rounded-full font-medium ${getStatusColor(
+                      className={`px-2 py-1 text-xs rounded-full font-medium whitespace-nowrap ${getStatusColor(
                         order.order_status
                       )}`}
                     >
@@ -387,7 +386,7 @@ const AdminOrders = () => {
                     </span>
                   </td>
                   <td className="px-2 lg:px-4 py-3 whitespace-nowrap text-xs text-gray-500">
-                    <div className="max-w-[100px] truncate">
+                    <div className="max-w-[100px] overflow-x-auto whitespace-nowrap">
                       {formatDate(order.createdAt)}
                     </div>
                   </td>
@@ -408,7 +407,6 @@ const AdminOrders = () => {
             </tbody>
           </table>
         </div>
-
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 flex items-center justify-between">

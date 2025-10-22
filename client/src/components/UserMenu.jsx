@@ -42,102 +42,89 @@ const UserMenu = ({ close }) => {
     }
   };
   return (
-    <div>
-      <div className="font-semibold text-purple-700">My Account</div>
-      <div className="text-sm flex items-center gap-2">
-        <span className="max-w-52 text-ellipsis line-clamp-1">
-          {user.name || user.mobile}{' '}
-          <span className="text-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent font-bold">
-            {user.role === 'ADMIN' ? '(Admin)' : ''}
-          </span>
-        </span>
-        <Link
-          onClick={handleClose}
-          to={'/dashboard/profile'}
-          className="hover:text-purple-600 transition-colors duration-300"
-        >
-          <HiOutlineExternalLink size={15} />
-        </Link>
-      </div>
-
-      <Divider />
-
-      <div className="text-sm grid gap-1">
+    <div className="space-y-1">
+      {/* Navigation Links */}
+      <div className="space-y-1">
         {isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/category'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Category
-          </Link>
-        )}
-
-        {isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/subcategory'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Sub Category
-          </Link>
-        )}
-
-        {isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/upload-product'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Upload Product
-          </Link>
-        )}
-
-        {isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/product'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Product
-          </Link>
-        )}
-
-        {isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/admin-orders'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Manage Orders
-          </Link>
+          <>
+            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2 px-2">
+              Admin Panel
+            </h4>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/category'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Category Management
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/subcategory'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Sub Category
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/upload-product'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Upload Product
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/product'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Product Management
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/admin-orders'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Manage Orders
+            </Link>
+            <div className="border-t border-gray-100 my-2"></div>
+          </>
         )}
 
         {!isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/myorders'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            My Orders
-          </Link>
+          <>
+            <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2 px-2">
+              My Account
+            </h4>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/profile'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Profile Settings
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/myorders'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              My Orders
+            </Link>
+            <Link
+              onClick={handleClose}
+              to={'/dashboard/address'}
+              className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-theme-50 hover:text-theme-700 rounded-lg transition-all duration-200"
+            >
+              Saved Addresses
+            </Link>
+            <div className="border-t border-gray-100 my-2"></div>
+          </>
         )}
 
-        {!isAdmin(user.role) && (
-          <Link
-            onClick={handleClose}
-            to={'/dashboard/address'}
-            className="px-2 hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 py-1 rounded-lg transition-all duration-300"
-          >
-            Save Address
-          </Link>
-        )}
-
+        {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="text-left px-2 hover:bg-gradient-to-r hover:from-red-100 hover:to-pink-100 py-1 rounded-lg transition-all duration-300 text-red-600"
+          className="w-full flex items-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 rounded-lg transition-all duration-200"
         >
-          Log Out
+          Sign Out
         </button>
       </div>
     </div>
