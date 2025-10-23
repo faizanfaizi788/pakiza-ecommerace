@@ -41,6 +41,7 @@ const Login = () => {
         data: data,
       });
 
+      console.log('handleSubmit : response', response);
       if (response.data.error) {
         toast.error(response.data.message);
       }
